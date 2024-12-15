@@ -1,4 +1,4 @@
-from Card import Card
+from Game_Cards.Card import Card
 from random import shuffle, randint
 
 
@@ -11,15 +11,23 @@ class DeckOfCards:
 
     def __str__(self):
         """Creates a string out of the list of cards and returns it."""
-        cards_deck = "-----[Cards Deck]-----\n"
+        cards_deck = f"-----[Cards Deck - {len(self.cards)} Cards]-----\n"
         for i in self.cards:
             cards_deck += f"{i} "
-        cards_deck += f"\nCards remaining: {len(self.cards)}"
         return cards_deck
+
+    def __repr__(self):
+        """Creates a string out of the list of cards and returns it."""
+        cards_deck = f"-----[Cards Deck - {len(self.cards)} Cards]-----\n"
+        for i in self.cards:
+            cards_deck += f"{i} "
+        return cards_deck
+
 
     def cards_shuffle(self):
         """Re-order the cards in a random order."""
-        shuffle(self.cards)
+        if len(self.cards) > 0:
+            shuffle(self.cards)
 
     def deal_one(self):
         """Returns a random card from the cards deck list after removing it."""

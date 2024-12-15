@@ -1,10 +1,17 @@
 class Card:
     def __init__(self, value, symbol):
-        if value == 1:
-            self.value = 14
-        else:
+        if type(value) != int:
+            raise TypeError("Value must be an int!")
+        if  1 < value < 14:
             self.value = value
-        self.symbol = symbol
+        else:
+            self.value = 14 # Default Value and for Act having the highest value
+        if type(symbol) != int:
+            raise TypeError("Symbol must be an int!")
+        if 0 < symbol < 5:
+            self.symbol = symbol
+        else:
+            self.symbol = 1
 
     def __gt__(self, other):
         """To determine if this card is bigger in value than the other card, or in symbol if their value is equal."""
@@ -13,7 +20,7 @@ class Card:
         elif self.value < other.value:
             return False
         else:
-            return self.symbol > other.symbol # Since two cards that are alike does not exist.
+            return self.symbol > other.symbol # Since two cards that are alike do not exist.
 
     def __eq__(self, other):
         """To determine if both cards are equal in value and are with an identical symbol."""
