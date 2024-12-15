@@ -4,6 +4,7 @@ from random import shuffle, randint
 
 class DeckOfCards:
     def __init__(self):
+        """Creates a cards deck of 52 unique cards."""
         self.cards = []
         for card_value in range(1,14):
             for card_symbol in range(1,5):

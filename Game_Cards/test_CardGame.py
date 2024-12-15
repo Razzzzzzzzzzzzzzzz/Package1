@@ -16,7 +16,7 @@ class TestCardGame(TestCase):
         self.assertEqual(self.game1.player_two.name, "Player")
 
     def test_init_valid_cards_number(self):
-        self.assertEqual(self.game1.player_one.cards_number, 26)
+        self.assertEqual(self.game1.player_one.cards_number, 10)
 
     def test_init_invalid_name_one_value(self):
         with self.assertRaises(ValueError):
@@ -47,8 +47,8 @@ class TestCardGame(TestCase):
             CardGame("Raz", "Player", "string")
 
     def test_new_game_valid_called_from_init(self):
-        """Testing if the cards deck has been distributed by new_game method after only calling init method."""
-        self.assertEqual(0, len(self.game1.game_cards_deck.cards))
+        """Testing if 20 cards has been distributed from the cards deck by new_game method after only calling init method."""
+        self.assertEqual(32, len(self.game1.game_cards_deck.cards))
 
     def test_new_game_invalid_called_from_outside_init(self):
         """Testing if the new_game method can be called from out of the init method."""

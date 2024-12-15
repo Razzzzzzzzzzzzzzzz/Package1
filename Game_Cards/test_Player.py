@@ -1,6 +1,7 @@
-from unittest import TestCase
+from unittest import TestCase, mock
 from Game_Cards.DeckOfCards import DeckOfCards
 from Game_Cards.Player import Player
+from Game_Cards.Card import Card
 
 class TestPlayer(TestCase):
 
@@ -34,7 +35,8 @@ class TestPlayer(TestCase):
         self.player1.set_hand(cards_deck)
         self.assertEqual(len(self.player1.player_cards), 26)
 
-    def test_set_hand_valid_type(self):
+    @mock.patch('Game_Cards.DeckOfCards.DeckOfCards.deal_one', return_value=Card(5,2))
+    def test_set_hand_valid_type(self, mock_deal_one):
         """Tests if the player cards are of a card type"""
         cards_deck = DeckOfCards()
         self.player1.set_hand(cards_deck)
