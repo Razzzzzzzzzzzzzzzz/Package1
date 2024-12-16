@@ -9,8 +9,10 @@ class CardGame:
             raise TypeError("Player name must be a string.")
         if type(cards_number) != int:
             raise TypeError("Cards number must be an int.")
-        if cards_number < 10 or cards_number > 26:
-            cards_number = 26
+        MIN_CARDS = 10
+        MAX_CARDS = 26
+        if cards_number < MIN_CARDS or cards_number > MAX_CARDS:
+            cards_number = MAX_CARDS
         self.player_one = Player(player_one_name, cards_number)
         self.player_two = Player(player_two_name, cards_number)
         self.game_cards_deck = DeckOfCards()

@@ -1,18 +1,22 @@
 class Card:
     def __init__(self, value, symbol):
+        MIN_CARD = 2
+        MAX_CARD = 13
         if type(value) != int:
             raise TypeError("Value must be an int!")
-        if  1 < value < 14:
+        if  MIN_CARD <= value <= MAX_CARD:
             self.value = value
         else:
-            self.value = 14 # Default Value and assign Ace with the
+            self.value = MAX_CARD # Default Value and assign Ace with the
                             # highest value
+        MIN_SYMBOL = 1
+        MAX_SYMBOL = 4
         if type(symbol) != int:
             raise TypeError("Symbol must be an int!")
-        if 0 < symbol < 5:
+        if MIN_SYMBOL <= symbol <= MAX_SYMBOL:
             self.symbol = symbol
         else:
-            self.symbol = 1
+            self.symbol = MIN_SYMBOL
 
     def __gt__(self, other):
         """To determine if this card is bigger in value than the other
