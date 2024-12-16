@@ -1,7 +1,7 @@
 class Card:
     def __init__(self, value, symbol):
         MIN_CARD = 2
-        MAX_CARD = 13
+        MAX_CARD = 14
         if type(value) != int:
             raise TypeError("Value must be an int!")
         if  MIN_CARD <= value <= MAX_CARD:

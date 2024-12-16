@@ -11,6 +11,26 @@ class TestDeckOfCards(TestCase):
         """Checks if the init creates a full cards deck of 52 cards."""
         self.assertEqual(52, len(self.my_cards_deck.cards))
 
+    def test_init_valid_type(self):
+        """Checks if the type of the cards deck is a list"""
+        self.assertEqual(type(self.my_cards_deck.cards), list)
+
+    def test_init_valid_value_range(self):
+        """Checks if the range of the cards value is within the range"""
+        valid_cards_value_range = True
+        for card in self.my_cards_deck.cards:
+            if card.value < 2 or card.value > 14:
+                valid_cards_value_range = False
+        self.assertTrue(valid_cards_value_range)
+
+    def test_init_valid_symbol_range(self):
+        """Checks if the range of the cards symbol is within the range"""
+        valid_cards_symbol_range = True
+        for card in self.my_cards_deck.cards:
+            if card.symbol < 1 or card.symbol > 4:
+                valid_cards_range = False
+        self.assertTrue(valid_cards_symbol_range)
+
     def test_init_valid_no_duplicates(self):
         """Testing for identical cards in the cards deck"""
         no_duplicates = True
