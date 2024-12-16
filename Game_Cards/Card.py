@@ -5,7 +5,8 @@ class Card:
         if  1 < value < 14:
             self.value = value
         else:
-            self.value = 14 # Default Value and assign Ace with the highest value
+            self.value = 14 # Default Value and assign Ace with the
+                            # highest value
         if type(symbol) != int:
             raise TypeError("Symbol must be an int!")
         if 0 < symbol < 5:
@@ -14,20 +15,24 @@ class Card:
             self.symbol = 1
 
     def __gt__(self, other):
-        """To determine if this card is bigger in value than the other card, or in symbol if their value is equal."""
+        """To determine if this card is bigger in value than the other
+         card, or in symbol if their value is equal."""
         if self.value > other.value:
             return True
         elif self.value < other.value:
             return False
         else:
-            return self.symbol > other.symbol # Since two cards that are alike do not exist.
+            return self.symbol > other.symbol # Since two cards that are
+                                              # alike do not exist.
 
     def __eq__(self, other):
-        """To determine if both cards are equal in value and are with an identical symbol."""
+        """To determine if both cards are equal in value and are with
+         an identical symbol."""
         return self.value == other.value and self.symbol == other.symbol
 
     def __str__(self):
-        """To return special cards with their name instead of a number."""
+        """To return special cards with their name instead of
+         a number."""
         if self.value == 14:
             card_value = "Ace"
         elif self.value == 11:
@@ -49,7 +54,8 @@ class Card:
         return f"[ {card_value} of {card_symbol} ]"
 
     def __repr__(self):
-        """for special card names when running through an entire cards deck"""
+        """for special card names when running through an entire
+         cards deck"""
         if self.value == 14:
             card_value = "Ace"
         elif self.value == 11:

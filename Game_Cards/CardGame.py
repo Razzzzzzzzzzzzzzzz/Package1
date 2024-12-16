@@ -14,9 +14,9 @@ class CardGame:
         self.player_one = Player(player_one_name, cards_number)
         self.player_two = Player(player_two_name, cards_number)
         self.game_cards_deck = DeckOfCards()
-        self.start_game = True # Informing new_game that we are starting a new game from init
+        self.start_game = True # Informing new_game that it started from init
         self.new_game()
-        self.start_game = False # so if called from another place, new_game won't work.
+        self.start_game = False # so new_game won't work if called out of init
 
     def new_game(self):
         """provides both players a shuffled cards deck"""
@@ -28,10 +28,13 @@ class CardGame:
             print("Game can be started from init only")
 
     def get_winner(self):
-        """Returns the winning player who has the most cards, or none if no one won."""
-        if len(self.player_one.player_cards) > len(self.player_two.player_cards):
+        """Returns the winning player who has the most cards,
+         or none if no one won."""
+        if (len(self.player_one.player_cards) >
+                len(self.player_two.player_cards)):
             return self.player_one
-        elif len(self.player_one.player_cards) < len(self.player_two.player_cards):
+        elif (len(self.player_one.player_cards) <
+              len(self.player_two.player_cards)):
             return self.player_two
         else:
             return None
