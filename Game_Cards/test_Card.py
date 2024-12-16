@@ -86,7 +86,7 @@ class TestCard(TestCase):
         other_card = Card(2, 4)
         self.assertFalse(self.my_card > other_card)
 
-    def test_eq_valid_value(self):
+    def test_eq_valid(self):
         """Testing the equal method with two cards with the same info."""
         other_card = Card(2,1)
         self.assertEqual(self.my_card,other_card)
