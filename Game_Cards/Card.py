@@ -5,7 +5,7 @@ class Card:
         if  1 < value < 14:
             self.value = value
         else:
-            self.value = 14 # Default Value and for Act having the highest value
+            self.value = 14 # Default Value and assign Ace with the highest value
         if type(symbol) != int:
             raise TypeError("Symbol must be an int!")
         if 0 < symbol < 5:
@@ -27,6 +27,7 @@ class Card:
         return self.value == other.value and self.symbol == other.symbol
 
     def __str__(self):
+        """To return special cards with their name instead of a number."""
         if self.value == 14:
             card_value = "Ace"
         elif self.value == 11:
@@ -48,6 +49,7 @@ class Card:
         return f"[ {card_value} of {card_symbol} ]"
 
     def __repr__(self):
+        """for special card names when running through an entire cards deck"""
         if self.value == 14:
             card_value = "Ace"
         elif self.value == 11:
@@ -67,9 +69,3 @@ class Card:
         else:
             card_symbol = "Clubs ♣"
         return f"[ {card_value} of {card_symbol} ]"
-
-if __name__ == "__main__":
-    card1 = Card(5,2)
-    card2 = Card(13,3)
-    print(card1)
-    print(card2)
