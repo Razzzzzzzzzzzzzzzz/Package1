@@ -5,11 +5,11 @@ player_two_name = input("Enter the second player name: ")
 card_game = CardGame(player_one_name, player_two_name)
 print(card_game.player_one)
 print(card_game.player_two)
-for game_round in range(1,11):
+for game_round in range(1,11): # 10 rounds
     player_one_card = card_game.player_one.get_card()
     player_two_card = card_game.player_two.get_card()
     player_one_won = player_one_card > player_two_card
-    if player_one_won:
+    if player_one_won: # adds a card to the winner, removes from the loser.
         round_winner = card_game.player_one.name
         card_game.player_one.add_card(player_one_card)
         card_game.player_one.add_card(player_two_card)
@@ -24,7 +24,7 @@ for game_round in range(1,11):
 player_one_total_cards = len(card_game.player_one.player_cards)
 player_two_total_cards = len(card_game.player_two.player_cards)
 
-if player_one_total_cards > player_two_total_cards:
+if player_one_total_cards > player_two_total_cards: #checks who won the game
     print(f"{card_game.player_one.name} Won the game! {player_one_total_cards}"
           f"- {player_two_total_cards}")
 elif player_one_total_cards < player_two_total_cards:
