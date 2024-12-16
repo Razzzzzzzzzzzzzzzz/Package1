@@ -14,12 +14,13 @@ class CardGame:
         self.player_one = Player(player_one_name, cards_number)
         self.player_two = Player(player_two_name, cards_number)
         self.game_cards_deck = DeckOfCards()
-        self.start_game = True
+        self.start_game = True # Informing new_game that we are starting a new game from init
         self.new_game()
-        self.start_game = False
+        self.start_game = False # so if called from another place, new_game won't work.
 
     def new_game(self):
-        if self.start_game:
+        """provides both players a shuffled cards deck"""
+        if self.start_game: # If method has been called from _init_
             self.game_cards_deck.cards_shuffle()
             self.player_one.set_hand(self.game_cards_deck)
             self.player_two.set_hand(self.game_cards_deck)
@@ -27,16 +28,10 @@ class CardGame:
             print("Game can be started from init only")
 
     def get_winner(self):
+        """Returns the winning player who has the most cards, or none if no one won."""
         if len(self.player_one.player_cards) > len(self.player_two.player_cards):
             return self.player_one
         elif len(self.player_one.player_cards) < len(self.player_two.player_cards):
             return self.player_two
         else:
             return None
-
-if __name__ == "__main__":
-    My_Game = CardGame("Raz", "Dom", 10)
-    print(My_Game.player_one)
-    print(My_Game.player_two)
-    print(My_Game.game_cards_deck)
-    print(My_Game.get_winner())
