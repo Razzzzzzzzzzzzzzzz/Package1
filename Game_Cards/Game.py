@@ -24,7 +24,7 @@ for game_round in range(1,11): # 10 rounds
 player_one_total_cards = len(card_game.player_one.player_cards)
 player_two_total_cards = len(card_game.player_two.player_cards)
 
-if player_one_total_cards > player_two_total_cards: #checks who won the game
+if player_one_total_cards > player_two_total_cards: # checks who won the game
     print(f"{card_game.player_one.name} Won the game! {player_one_total_cards}"
           f"- {player_two_total_cards}")
 elif player_one_total_cards < player_two_total_cards:

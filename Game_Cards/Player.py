@@ -27,8 +27,8 @@ class Player:
             raise TypeError("Cards Deck must be a DeckOfCards Type!")
         if len(cards_deck.cards) > 0: # if there are cards in the cards deck
             for cards in range(self.cards_number):
-                self.player_cards.append(cards_deck.deal_one()) #adds a card
-                                         # from the cards deck to the player
+                self.player_cards.append(cards_deck.deal_one()) # adds a card
+                                          # from the cards deck to the player
 
     def get_card(self):
         """The method takes one random card from the player"""
