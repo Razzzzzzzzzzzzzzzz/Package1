@@ -18,7 +18,7 @@ for game_round in range(1,11): # 10 rounds
         card_game.player_two.add_card(player_one_card)
         card_game.player_two.add_card(player_two_card)
     print(f"[Round {game_round} winner: {round_winner}]\n"
-          f"{card_game.player_one.name} card: {player_one_card} -"
+          f"{card_game.player_one.name} card: {player_one_card} - "
           f"{card_game.player_two.name} card: {player_two_card}")
 
 player_one_total_cards = len(card_game.player_one.player_cards)

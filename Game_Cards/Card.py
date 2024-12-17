@@ -56,7 +56,7 @@ class Card:
             card_symbol = "Hearts ♥"
         else:
             card_symbol = "Clubs ♣"
-        return f"[ {card_value} of {card_symbol} ]"
+        return f"|{card_value} of {card_symbol}|"
 
     def __repr__(self):
         """for special card names when running through an entire
@@ -79,4 +79,4 @@ class Card:
             card_symbol = "Hearts ♥"
         else:
             card_symbol = "Clubs ♣"
-        return f"[ {card_value} of {card_symbol} ]"
+        return f"|{card_value} of {card_symbol}|"

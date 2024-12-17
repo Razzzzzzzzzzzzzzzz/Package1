@@ -17,8 +17,11 @@ class Player:
         self.player_cards = []
 
     def __str__(self):
+        cards_deck = ""
+        for card in self.player_cards:
+            cards_deck += f"{card} "
         return (f"-----[{self.name} - {len(self.player_cards)} Cards]-----\n"
-                f"{self.player_cards}")
+                f"{cards_deck}")
 
     def set_hand(self, cards_deck):
         """Gives the player a deck of cards according to the
@@ -28,9 +31,7 @@ class Player:
         if len(cards_deck.cards) >= self.cards_number: # if there are enough
                                                    # cards in the cards deck
             for card in range(self.cards_number):
-                added_card = cards_deck.deal_one()
-                print(added_card)
-                self.player_cards.append(added_card) # adds a card
+                self.player_cards.append(cards_deck.deal_one()) # adds a card
                                           # from the cards deck to the player
 
     def get_card(self):
