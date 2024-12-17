@@ -3,7 +3,9 @@ from Game_Cards.Player import Player
 
 class CardGame:
     def __init__(self, player_one_name, player_two_name, cards_number = 26):
-        if len(player_one_name) < 1 or len(player_two_name) < 1:
+        MIN_NAME_LENGTH = 1
+        if (len(player_one_name) < MIN_NAME_LENGTH or
+                len(player_two_name) < MIN_NAME_LENGTH):
             raise ValueError("Player name can't be empty.")
         if type(player_one_name) != str or type(player_two_name) != str:
             raise TypeError("Player name must be a string.")
@@ -12,7 +14,7 @@ class CardGame:
         MIN_CARDS = 10
         MAX_CARDS = 26
         if cards_number < MIN_CARDS or cards_number > MAX_CARDS:
-            cards_number = MAX_CARDS
+            cards_number = MAX_CARDS # Default value
         self.player_one = Player(player_one_name, cards_number)
         self.player_two = Player(player_two_name, cards_number)
         self.game_cards_deck = DeckOfCards()

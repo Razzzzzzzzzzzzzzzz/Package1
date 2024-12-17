@@ -9,11 +9,13 @@ class Player:
         if type(name) != str:
             raise TypeError("name must be a string!")
         self.name = name
-        if 10 <= cards_number <= 26: # Checks for the cards number to be
+        MIN_CARDS = 10
+        MAX_CARDS = 26
+        if MIN_CARDS <= cards_number <= MAX_CARDS: # Checks for the cards number to be
                                              # within the allowed range.
             self.cards_number = cards_number
         else:
-            self.cards_number = 26
+            self.cards_number = MAX_CARDS # Default value
         self.player_cards = []
 
     def __str__(self):

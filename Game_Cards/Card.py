@@ -8,8 +8,8 @@ class Card:
         if  MIN_CARD <= value <= MAX_CARD:
             self.value = value
         else:
-            self.value = ACE_VALUE # Default Value and assign Ace with
-                            # the highest value
+            self.value = ACE_VALUE # Default Value and assign Ace as
+                            # the highest value.
         MIN_SYMBOL = 1
         MAX_SYMBOL = 4
         if type(symbol) != int:
