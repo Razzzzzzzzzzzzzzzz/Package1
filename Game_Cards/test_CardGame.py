@@ -61,14 +61,14 @@ class TestCardGame(TestCase):
 
     def test_init_invalid_cards_number_high(self):
         """If the cards number entered is too high, tests if the
-        default value 26 will be there"""
+        default value 26 will be there."""
         self.game1 = CardGame("Raz", "Player",
                               27)
         self.assertEqual(26, self.game1.player_one.cards_number)
 
     def test_init_invalid_cards_number_type(self):
         """If the cards number entered is too low, tests if the
-        default value 26 will be there"""
+        default value 26 will be there."""
         with self.assertRaises(TypeError):
             CardGame("Raz", "Player",
                      "string")

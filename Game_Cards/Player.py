@@ -4,15 +4,15 @@ from random import randint
 
 class Player:
     def __init__(self, name, cards_number = 26):
-        if len(name) < 1:
-            raise ValueError("Name can't be empty")
         if type(name) != str:
             raise TypeError("name must be a string!")
+        if len(name) < 1:
+            raise ValueError("Name can't be empty")
         self.name = name
         MIN_CARDS = 10
         MAX_CARDS = 26
-        if MIN_CARDS <= cards_number <= MAX_CARDS: # Checks for the cards number to be
-                                             # within the allowed range.
+        if MIN_CARDS <= cards_number <= MAX_CARDS: # Checks for the cards
+                                 # number to be within the allowed range.
             self.cards_number = cards_number
         else:
             self.cards_number = MAX_CARDS # Default value
@@ -32,7 +32,7 @@ class Player:
             raise TypeError("Cards Deck must be a DeckOfCards Type!")
         if len(cards_deck.cards) >= self.cards_number: # if there are enough
                                                    # cards in the cards deck
-            for card in range(self.cards_number):
+            for _ in range(self.cards_number):
                 self.player_cards.append(cards_deck.deal_one()) # adds a card
                                           # from the cards deck to the player
 

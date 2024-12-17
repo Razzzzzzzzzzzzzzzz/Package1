@@ -22,6 +22,8 @@ class Card:
     def __gt__(self, other):
         """To determine if this card is bigger in value than the other
          card, or in symbol if their value is equal."""
+        if type(self) != Card or type(other) != Card:
+            raise TypeError("Type must be a Card")
         if self.value > other.value:
             return True
         elif self.value < other.value:
@@ -33,50 +35,30 @@ class Card:
     def __eq__(self, other):
         """To determine if both cards are equal in value and are with
          an identical symbol."""
+        if type(self) != Card or type(other) != Card:
+            raise TypeError("Type must be a Card")
         return self.value == other.value and self.symbol == other.symbol
 
     def __str__(self):
         """To return special cards with their name instead of
          a number."""
-        if self.value == 14:
-            card_value = "Ace"
-        elif self.value == 11:
-            card_value = "Jack"
-        elif self.value == 12:
-            card_value = "Queen"
-        elif self.value == 13:
-            card_value = "King"
+        values = {11:"Jack", 12:"Queen", 13:"King", 14:"Ace"}
+        if 11 <= self.value <= 14:
+            card_value = values[self.value]
         else:
             card_value = self.value
-        if self.symbol == 1:
-            card_symbol = "Diamonds ♦"
-        elif self.symbol == 2:
-            card_symbol = "Spades ♠"
-        elif self.symbol == 3:
-            card_symbol = "Hearts ♥"
-        else:
-            card_symbol = "Clubs ♣"
+        symbols = {1:"Diamonds ♦", 2:"Spades ♠", 3:"Hearts ♥", 4:"Clubs ♣"}
+        card_symbol = symbols[self.symbol]
         return f"|{card_value} of {card_symbol}|"
 
     def __repr__(self):
         """for special card names when running through an entire
          cards deck"""
-        if self.value == 14:
-            card_value = "Ace"
-        elif self.value == 11:
-            card_value = "Jack"
-        elif self.value == 12:
-            card_value = "Queen"
-        elif self.value == 13:
-            card_value = "King"
+        values = {11: "Jack", 12: "Queen", 13: "King", 14: "Ace"}
+        if 11 <= self.value <= 14:
+            card_value = values[self.value]
         else:
             card_value = self.value
-        if self.symbol == 1:
-            card_symbol = "Diamonds ♦"
-        elif self.symbol == 2:
-            card_symbol = "Spades ♠"
-        elif self.symbol == 3:
-            card_symbol = "Hearts ♥"
-        else:
-            card_symbol = "Clubs ♣"
+        symbols = {1: "Diamonds ♦", 2: "Spades ♠", 3: "Hearts ♥", 4: "Clubs ♣"}
+        card_symbol = symbols[self.symbol]
         return f"|{card_value} of {card_symbol}|"

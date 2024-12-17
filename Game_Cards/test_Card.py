@@ -85,23 +85,29 @@ class TestCard(TestCase):
         ace_card = Card(1,1)
         self.assertGreater(ace_card, king_card)
 
-    def test_gt_invalid_value(self):
+    def test_gt_valid_false_value(self):
         """Testing if the greater method returns false when the
         card is not higher."""
         other_card = Card(5, 1)
         self.assertFalse(self.my_card > other_card)
 
-    def test_gt_invalid_symbol(self):
+    def test_gt_valid_false_symbol(self):
         """Testing if the greater method returns false when the
         value is identical and the symbol is lower"""
         other_card = Card(2, 4)
         self.assertFalse(self.my_card > other_card)
 
-    def test_gt_invalid_equal(self):
+    def test_gt_valid_false_equal(self):
         """Testing if the greater method returns false when
         the cards are equal"""
         other_card = self.my_card
         self.assertFalse(self.my_card > other_card)
+
+    def test_gt_invalid_type(self):
+        """Testing for an error when giving an invalid
+        type instead of a card"""
+        with self.assertRaises(TypeError):
+            self.my_card > 5
 
     #-----[eq testing]-----
     def test_eq_valid(self):
@@ -110,14 +116,20 @@ class TestCard(TestCase):
         other_card = Card(2,1)
         self.assertEqual(other_card, self.my_card)
 
-    def test_eq_invalid_value(self):
+    def test_eq_valid_false_value(self):
         """Testing if the equal method will return false when
         both values are different"""
         other_card = Card(3,1)
         self.assertFalse(self.my_card == other_card)
 
-    def test_eq_invalid_symbol(self):
+    def test_eq_valid_false_symbol(self):
         """Testing if the equal method will return false when
         both values are different"""
         other_card = Card(2,2)
         self.assertFalse(self.my_card == other_card)
+
+    def test_eq_invalid_type(self):
+        """Testing for an error when giving an invalid
+        type instead of a card"""
+        with self.assertRaises(TypeError):
+            self.my_card == 5

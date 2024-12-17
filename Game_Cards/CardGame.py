@@ -3,12 +3,12 @@ from Game_Cards.Player import Player
 
 class CardGame:
     def __init__(self, player_one_name, player_two_name, cards_number = 26):
+        if type(player_one_name) != str or type(player_two_name) != str:
+            raise TypeError("Player name must be a string.")
         MIN_NAME_LENGTH = 1
         if (len(player_one_name) < MIN_NAME_LENGTH or
                 len(player_two_name) < MIN_NAME_LENGTH):
             raise ValueError("Player name can't be empty.")
-        if type(player_one_name) != str or type(player_two_name) != str:
-            raise TypeError("Player name must be a string.")
         if type(cards_number) != int:
             raise TypeError("Cards number must be an int.")
         MIN_CARDS = 10

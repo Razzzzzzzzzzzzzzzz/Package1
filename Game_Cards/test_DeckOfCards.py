@@ -49,7 +49,6 @@ class TestDeckOfCards(TestCase):
         """Testing if an un-shuffled deck of cards is equal to a
         shuffled deck of cards."""
         cards_deck = self.my_cards_deck.cards.copy()
-        list(cards_deck) # Because shuffled cards deck returns a list
         shuffled_cards_deck = self.my_cards_deck
         shuffled_cards_deck.cards_shuffle()
         self.assertNotEqual(cards_deck, shuffled_cards_deck.cards)
@@ -74,6 +73,12 @@ class TestDeckOfCards(TestCase):
         returned_card = self.my_cards_deck.deal_one()
         self.assertEqual(Card, type(returned_card))
 
+    def test_deal_one_valid_removed_card(self):
+        """Testing if the card has been removed from the
+        player cards deck"""
+        returned_card = self.my_cards_deck.deal_one()
+        self.assertNotIn(returned_card, self.my_cards_deck.cards)
+
     def test_deal_one_invalid_empty_cards_deck(self):
         """Testing the deal one method to not do anything when
         there are no cards"""
@@ -82,3 +87,9 @@ class TestDeckOfCards(TestCase):
         self.my_cards_deck.deal_one() # use the deal one on one of
                                       # the cards deck
         self.assertEqual(other_cards_deck, self.my_cards_deck.cards)
+
+    def test_deal_one_return_when_empty(self):
+        """Testing if the deal one method returns none
+        when there are no cards"""
+        self.my_cards_deck.cards = []
+        self.assertEqual(None, self.my_cards_deck.deal_one())

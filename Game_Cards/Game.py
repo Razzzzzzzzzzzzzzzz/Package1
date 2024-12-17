@@ -5,7 +5,7 @@ player_two_name = input("Enter the second player name: ")
 card_game = CardGame(player_one_name, player_two_name)
 print(card_game.player_one)
 print(card_game.player_two)
-for game_round in range(1,11): # 10 rounds
+for game_round in range(1,11): # 10 rounds in total.
     player_one_card = card_game.player_one.get_card()
     player_two_card = card_game.player_two.get_card()
     player_one_won = player_one_card > player_two_card

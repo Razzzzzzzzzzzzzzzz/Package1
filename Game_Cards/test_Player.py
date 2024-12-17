@@ -56,22 +56,28 @@ class TestPlayer(TestCase):
             Player("")
 
     #-----[set hand testing]-----
-    @mock.patch('Game_Cards.DeckOfCards.DeckOfCards.deal_one',
-                return_value=Card(5, 2))
-    def test_set_hand_valid_length(self, mock_deal_one):
+    def test_set_hand_valid_length(self):
         """Tests for the set_hand card to give the
         player "player_cards" cards"""
         cards_deck = DeckOfCards()
         self.player1.set_hand(cards_deck)
         self.assertEqual(26, len(self.player1.player_cards))
 
-    @mock.patch('Game_Cards.DeckOfCards.DeckOfCards.deal_one',
-                return_value=Card(5,2))
-    def test_set_hand_valid_type(self, mock_deal_one):
+    def test_set_hand_valid_type(self):
         """Tests if the player cards are of a card type"""
         cards_deck = DeckOfCards()
         self.player1.set_hand(cards_deck)
         self.assertEqual(Card, type(self.player1.player_cards[0]))
+
+    @mock.patch('Game_Cards.DeckOfCards.DeckOfCards.deal_one',
+                return_value=Card(5, 2))
+    def test_set_hand_valid_card_in_deck(self, mock_deal_one):
+        """Testing if the card deal one returns is
+        inserted to the player cards deck"""
+        cards_deck = DeckOfCards()
+        self.player1.set_hand(cards_deck)
+        self.assertIn(Card(5,2), self.player1.player_cards)
+
 
     def test_set_hand_invalid_empty_deck(self):
         """To ensure the set hand method works if the
@@ -81,7 +87,7 @@ class TestPlayer(TestCase):
         self.player1.set_hand(cards_deck)
         self.assertEqual(0, len(self.player1.player_cards))
 
-    def test_set_hand_not_enough_cards_in_deck(self):
+    def test_set_hand_invalid_not_enough_cards_in_deck(self):
         """To ensure the set hand won't run if there aren't
         enough cards in the cards deck"""
         cards_deck = DeckOfCards()
@@ -143,6 +149,13 @@ class TestPlayer(TestCase):
         self.player1.add_card(cards_deck.deal_one())
         self.assertEqual(len(self.player1.player_cards),
                          len(player1_old_cards_deck) + 1)
+
+    def test_add_card_is_in_cards_deck(self):
+        """Test if the added card is in the player deck"""
+        cards_deck = DeckOfCards()
+        added_card = cards_deck.deal_one()
+        self.player1.add_card(added_card)
+        self.assertIn(added_card, self.player1.player_cards)
 
     def test_add_card_invalid_type(self):
         """Tests for the method to not run if given a different
