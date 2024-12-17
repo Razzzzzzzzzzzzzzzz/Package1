@@ -14,19 +14,19 @@ class DeckOfCards:
         """Creates a string out of the list of cards and returns it."""
         cards_deck = f"-----[Cards Deck - {len(self.cards)} Cards]-----\n"
         for i in self.cards:
-            cards_deck += f"{i} " # Prints the cards in the cards deck
+            cards_deck += f"{i} " # Prints the cards in the cards deck.
         return cards_deck
 
     def __repr__(self):
         """Creates a string out of the list of cards and returns it."""
         cards_deck = f"-----[Cards Deck - {len(self.cards)} Cards]-----\n"
         for i in self.cards:
-            cards_deck += f"{i} " # Prints the cards in the cards deck
+            cards_deck += f"{i} " # Prints the cards in the cards deck.
         return cards_deck
 
     def cards_shuffle(self):
         """Re-order the cards in a random order."""
-        if len(self.cards) > 0: # If the cards deck holds at least one card
+        if len(self.cards) > 1: # If the cards deck has at least two cards
             shuffle(self.cards)
 
     def deal_one(self):

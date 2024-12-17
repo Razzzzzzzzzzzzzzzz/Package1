@@ -20,14 +20,17 @@ class Player:
         return (f"-----[{self.name} - {len(self.player_cards)} Cards]-----\n"
                 f"{self.player_cards}")
 
-    def set_hand(self, cards_deck = DeckOfCards()):
+    def set_hand(self, cards_deck):
         """Gives the player a deck of cards according to the
          cards_number"""
         if type(cards_deck) != DeckOfCards:
             raise TypeError("Cards Deck must be a DeckOfCards Type!")
-        if len(cards_deck.cards) > 0: # if there are cards in the cards deck
-            for cards in range(self.cards_number):
-                self.player_cards.append(cards_deck.deal_one()) # adds a card
+        if len(cards_deck.cards) >= self.cards_number: # if there are enough
+                                                   # cards in the cards deck
+            for card in range(self.cards_number):
+                added_card = cards_deck.deal_one()
+                print(added_card)
+                self.player_cards.append(added_card) # adds a card
                                           # from the cards deck to the player
 
     def get_card(self):

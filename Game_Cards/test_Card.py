@@ -7,15 +7,16 @@ class TestCard(TestCase):
         """Creates a card before every method runs"""
         self.my_card = Card(2,1)
 
+    # -----[Init Testing]-----
     def test_init_valid_value(self):
         """checks if the value the user gives enters as the
          card value"""
-        self.assertEqual(self.my_card.value, 2)
+        self.assertEqual(2, self.my_card.value)
 
     def test_init_valid_symbol(self):
         """checks if the symbol the user gives enters as the
          card symbol"""
-        self.assertEqual(self.my_card.symbol, 1)
+        self.assertEqual(1, self.my_card.symbol)
 
     def test_init_invalid_value_type(self):
         """tests for an error to be given when giving a non-int type
@@ -24,22 +25,22 @@ class TestCard(TestCase):
             Card("Hello", 2)
 
     def test_init_invalid_value_range_below(self):
-        """If the card value is above the allowed value range, it will
-         give a default value."""
-        invalid_value_card = Card(20,1)
-        self.assertEqual(invalid_value_card.value, 14)
-
-    def test_init_invalid_value_range_above(self):
         """If the card value is under the allowed value range,
          it will give a default value."""
         invalid_value_card = Card(0,1)
         self.assertEqual(invalid_value_card.value, 14)
 
+    def test_init_invalid_value_range_above(self):
+        """If the card value is above the allowed value range, it will
+         give a default value."""
+        invalid_value_card = Card(15,1)
+        self.assertEqual(14, invalid_value_card.value)
+
     def test_init_invalid_value_negative(self):
         """tests for a default value to be given when entering a
          negative value as the user."""
         invalid_value_card = Card(-1,1)
-        self.assertEqual(invalid_value_card.value, 14)
+        self.assertEqual(14, invalid_value_card.value)
 
     def test_init_invalid_symbol_value(self):
         """tests for an error when giving a non-int type of symbol."""
@@ -50,20 +51,21 @@ class TestCard(TestCase):
         """If the card symbol is under the symbol allowed range,
          it will give a default value."""
         invalid_value_card = Card(1, 0)
-        self.assertEqual(invalid_value_card.symbol, 1)
+        self.assertEqual(1, invalid_value_card.symbol)
 
     def test_init_invalid_symbol_range_above(self):
         """If the card symbol is above the symbol allowed range,
          it will give a default value."""
         invalid_value_card = Card(1, 10)
-        self.assertEqual(invalid_value_card.symbol, 1)
+        self.assertEqual(1, invalid_value_card.symbol)
 
     def test_init_invalid_symbol_negative(self):
         """tests for a default value when giving a negative value
          in the symbol"""
         invalid_value_card = Card(1, -1)
-        self.assertEqual(invalid_value_card.symbol, 1)
+        self.assertEqual(1, invalid_value_card.symbol)
 
+    #-----[gt testing]-----
     def test_gt_valid_higher_value(self):
         """ensures the greater method returns true when the value
          is higher"""
@@ -89,23 +91,24 @@ class TestCard(TestCase):
         other_card = Card(5, 1)
         self.assertFalse(self.my_card > other_card)
 
-    def test_gt_invalid_equal(self):
-        """Testing if the greater method returns false when
-        the cards are equal"""
-        other_card = self.my_card
-        self.assertFalse(self.my_card > other_card)
-
     def test_gt_invalid_symbol(self):
         """Testing if the greater method returns false when the
         value is identical and the symbol is lower"""
         other_card = Card(2, 4)
         self.assertFalse(self.my_card > other_card)
 
+    def test_gt_invalid_equal(self):
+        """Testing if the greater method returns false when
+        the cards are equal"""
+        other_card = self.my_card
+        self.assertFalse(self.my_card > other_card)
+
+    #-----[eq testing]-----
     def test_eq_valid(self):
         """Testing the equal method with two cards with the
         same info."""
         other_card = Card(2,1)
-        self.assertEqual(self.my_card,other_card)
+        self.assertEqual(other_card, self.my_card)
 
     def test_eq_invalid_value(self):
         """Testing if the equal method will return false when

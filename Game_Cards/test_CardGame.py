@@ -7,19 +7,26 @@ class TestCardGame(TestCase):
         self.game1 = CardGame("Raz", "Player",
                               10)
 
+    #-----[init testing]-----
     def test_init_valid_name_one(self):
         """Testing if the first player name in inserted to the
         Card Game"""
-        self.assertEqual(self.game1.player_one.name, "Raz")
+        self.assertEqual("Raz", self.game1.player_one.name)
 
     def test_init_valid_name_two(self):
         """Testing if the second player name is inserted to the
         Card Game"""
-        self.assertEqual(self.game1.player_two.name, "Player")
+        self.assertEqual("Player", self.game1.player_two.name)
 
     def test_init_valid_cards_number(self):
         """Testing if the cards number is inserted to the Card Game"""
-        self.assertEqual(self.game1.player_one.cards_number, 10)
+        self.assertEqual(10, self.game1.player_one.cards_number)
+
+    def test_init_valid_cards_number_empty(self):
+        """If not entered a cards number, tests if the default
+        value 26 will be there"""
+        game2 = CardGame("Raz", "Player")
+        self.assertEqual(26, game2.player_one.cards_number)
 
     def test_init_invalid_name_one_value(self):
         """Testing if a value error occurs if the first player
@@ -45,18 +52,19 @@ class TestCardGame(TestCase):
         with self.assertRaises(TypeError):
             CardGame("Raz", 8)
 
-    def test_init_invalid_cards_number_empty(self):
-        """If not entered a cards number, tests if the default
-        value 26 will be there"""
-        self.game1 = CardGame("Raz", "Player")
-        self.assertEqual(self.game1.player_one.cards_number, 26)
+    def test_init_invalid_cards_number_low(self):
+        """If the cards number entered is too low, tests if the
+        default value 26 will be there"""
+        self.game1 = CardGame("Raz", "Player",
+                              9)
+        self.assertEqual(26, self.game1.player_one.cards_number)
 
     def test_init_invalid_cards_number_high(self):
         """If the cards number entered is too high, tests if the
         default value 26 will be there"""
         self.game1 = CardGame("Raz", "Player",
-                              200)
-        self.assertEqual(self.game1.player_one.cards_number, 26)
+                              27)
+        self.assertEqual(26, self.game1.player_one.cards_number)
 
     def test_init_invalid_cards_number_type(self):
         """If the cards number entered is too low, tests if the
@@ -65,6 +73,7 @@ class TestCardGame(TestCase):
             CardGame("Raz", "Player",
                      "string")
 
+    #-----[new game testing]-----
     def test_new_game_valid_called_from_init(self):
         """Testing if 20 cards has been distributed from the cards
         deck by new_game method after only calling init method."""
@@ -93,6 +102,7 @@ class TestCardGame(TestCase):
         self.assertEqual(len(self.game1.player_two.player_cards),
                          self.game1.player_two.cards_number)
 
+    # -----[get winner testing]-----
     def test_get_winner_valid_player1_wins(self):
         """Tests if player1 wins when he has more cards than player2"""
         self.game1.player_two.get_card()

@@ -1,3 +1,4 @@
+from random import shuffle
 from unittest import TestCase
 from Game_Cards.Card import Card
 from Game_Cards.DeckOfCards import DeckOfCards
@@ -7,13 +8,14 @@ class TestDeckOfCards(TestCase):
     def setUp(self):
         self.my_cards_deck = DeckOfCards()
 
+    #-----[init testing]-----
     def test_init_valid_deck_length(self):
         """Checks if the init creates a full cards deck of 52 cards."""
         self.assertEqual(52, len(self.my_cards_deck.cards))
 
     def test_init_valid_type(self):
         """Checks if the type of the cards deck is a list"""
-        self.assertEqual(type(self.my_cards_deck.cards), list)
+        self.assertEqual(list, type(self.my_cards_deck.cards))
 
     def test_init_valid_value_range(self):
         """Checks if the range of the cards value is within the range"""
@@ -43,27 +45,24 @@ class TestDeckOfCards(TestCase):
                                           # line above is true
         self.assertTrue(no_duplicates)
 
+    #-----[shuffle testing]-----
     def test_valid_shuffle(self):
         """Testing if an un-shuffled deck of cards is equal to a
-        shuffled deck of cards. If all cards are equal, then the
-        test will fail"""
-        shuffled_cards_deck = DeckOfCards()
+        shuffled deck of cards."""
+        cards_deck = self.my_cards_deck.cards.copy()
+        list(cards_deck) # Because shuffled cards deck returns a list
+        shuffled_cards_deck = self.my_cards_deck
         shuffled_cards_deck.cards_shuffle()
-        shuffled = False # Will be true if the cards deck is shuffled.
-        for i in range(52):
-            if shuffled_cards_deck.cards[i] != self.my_cards_deck.cards[i]:
-                shuffled = True # If two cards on the same index are different,
-                                # the cards deck is shuffled.
-                break
-        self.assertTrue(shuffled)
+        self.assertNotEqual(cards_deck, shuffled_cards_deck.cards)
 
     def test_invalid_shuffle_empty(self):
         """Testing if the method works when attempting to shuffle
         an empty list."""
         self.my_cards_deck.cards = []
         self.my_cards_deck.cards_shuffle()
-        self.assertEqual(self.my_cards_deck.cards, [])
+        self.assertEqual([], self.my_cards_deck.cards)
 
+    #-----[deal one testing]-----
     def test_deal_one_valid_remove_one_card(self):
         """Testing for 1 card to be removed from the cards deck."""
         dealt_cards_deck = self.my_cards_deck.cards.copy()
@@ -74,7 +73,7 @@ class TestDeckOfCards(TestCase):
     def test_deal_one_valid_return_card(self):
         """Testing if the returned object is a card."""
         returned_card = self.my_cards_deck.deal_one()
-        self.assertEqual(type(returned_card), Card)
+        self.assertEqual(Card, type(returned_card))
 
     def test_deal_one_invalid_empty_cards_deck(self):
         """Testing the deal one method to not do anything when
