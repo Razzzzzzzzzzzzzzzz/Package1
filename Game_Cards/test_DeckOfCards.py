@@ -28,7 +28,7 @@ class TestDeckOfCards(TestCase):
         valid_cards_symbol_range = True
         for card in self.my_cards_deck.cards:
             if card.symbol < 1 or card.symbol > 4:
-                valid_cards_range = False
+                valid_cards_symbol_range = False
         self.assertTrue(valid_cards_symbol_range)
 
     def test_init_valid_no_duplicates(self):
