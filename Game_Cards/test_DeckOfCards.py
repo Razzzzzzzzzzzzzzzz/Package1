@@ -1,4 +1,3 @@
-from random import shuffle
 from unittest import TestCase
 from Game_Cards.Card import Card
 from Game_Cards.DeckOfCards import DeckOfCards
