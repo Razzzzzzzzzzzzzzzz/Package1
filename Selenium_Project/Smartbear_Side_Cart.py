@@ -7,11 +7,11 @@ class SmartbearSideCart:
 
     def cart_quantity(self):
         """Returns the cart quantity element"""
-        return self.driver.find_element(By.XPATH,"//*[@id='cart-tab']/span[2]")
+        return self.driver.find_element(By.XPATH,"//a[@id='cart-tab']/span[2]")
 
     def cart_quantity_number(self):
         """Returns the cart quantity number"""
-        return self.cart_quantity().text()
+        return self.cart_quantity().get_attribute("innerHTML")
 
     def cart_items(self):
         """Returns the elements of the cart items as a list"""
