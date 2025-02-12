@@ -6,7 +6,7 @@ from Smartbear_Product import SmartbearProduct
 from Smartbear_Side_Cart import SmartbearSideCart
 from Smartbear_Header import SmartbearHeader
 import csv
-csv_file_path = 'C:/Users/razbk/Downloads/Raz - PycharmSheet.csv'
+csv_file_path = 'C:/Users/embedded/Downloads/Raz - PycharmSheet.csv'
 from time import sleep
 from random import randint
 
@@ -21,6 +21,17 @@ class TestPetstoreMenu(TestCase):
         self.product = SmartbearProduct(self.driver)
         self.side_cart = SmartbearSideCart(self.driver)
         self.header = SmartbearHeader(self.driver)
+        print("setup")
+
+    def tearDown(self):
+        print("teardown")
+        # self.header.main_menu_button()
+        # self.header.open_cart()
+        # self.side_cart.empty_cart()
+
+    def test_setup_temp(self):
+        self.main_menu.click_category(2)
+        sleep(2)
 
     def test_pick_category(self):
         with open(csv_file_path, mode='r') as file:
@@ -64,7 +75,7 @@ class TestPetstoreMenu(TestCase):
             writer.writerows(reader)
 
     # --- [ Test 2 ] ---
-    def test(self):
+    def test_total_quantity(self):
         with open(csv_file_path, mode='r') as file:
             reader = csv.reader(file)
             reader = list(reader)
@@ -77,8 +88,48 @@ class TestPetstoreMenu(TestCase):
         self.header.main_menu_button()
         category_index = int(reader[8][3])  # Adding product 2
         self.main_menu.click_category(category_index)
-        self.category.click_product(int(reader[12][3]))
-        self.product.change_item_quantity_value(int(reader[14][3]))
+        self.category.click_product(int(reader[10][3]))
+        self.product.change_item_quantity_value(int(reader[12][3]))
         self.product.add_to_cart()
-        self.assertEqual(reader[15][3],self.side_cart.cart_quantity_number())
+        self.assertEqual(reader[13][3],self.side_cart.cart_quantity_number())
+        reader[14][3] = 'V'
+        with open(csv_file_path, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(reader)
+
+    # --- [ Test 3 ] ---
+    def test(self):
+        with open(csv_file_path, mode='r') as file:
+            reader = csv.reader(file)
+            reader = list(reader)
+        category_index = int(reader[1][5]) # Adding product 1
+        product_index = int(reader[3][5])
+        quantity_index = int(reader[5][5])
+        self.main_menu.click_category(category_index)
+        self.category.click_product(product_index)
+        self.product.change_item_quantity_value(quantity_index)
+        self.product.add_to_cart()
+        self.header.main_menu_button()
+        category_index = int(reader[6][5])  # Adding product 2
+        product_index = int(reader[8][5])
+        quantity_index = int(reader[10][5])
+        self.main_menu.click_category(category_index)
+        self.category.click_product(product_index)
+        self.product.change_item_quantity_value(quantity_index)
+        self.product.add_to_cart()
+        self.header.main_menu_button()
+        category_index = int(reader[11][5])  # Adding product 3
+        subcategory_index = int(reader[13][5])
+        product_index = int(reader[15][5])
+        quantity_index = int(reader[17][5])
+        self.main_menu.click_category(category_index)
+        self.category.click_sub_category(subcategory_index)
+        self.category.click_product(product_index)
+        self.product.change_item_quantity_value(quantity_index)
+        self.product.add_to_cart()
+        print(self.side_cart.cart_item_name(0))
+        print(self.side_cart.cart_item_name(1))
+        print(self.side_cart.cart_item_name(2))
+        print(self.side_cart.cart_item_price(2))
+        print(self.side_cart.cart_item_price_number(2))
         sleep(5)
