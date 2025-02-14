@@ -19,4 +19,29 @@ class SmartbearHeader:
 
     def open_cart(self):
         """Opens the shopping cart by clicking its icon"""
-        return self.get_cart().click()
+        self.get_cart().click()
+
+    def get_login(self):
+        """Returns the element of the login icon"""
+        return self.driver.find_element(By.XPATH, "//*[@id='menubar-my-account']/div/a")
+
+    def open_login(self):
+        """Opens the login screen by clicking its icon"""
+        self.get_login().click()
+
+    def get_logged_in_username(self):
+        """Returns the element of the username who is logged in"""
+        return self.get_login().find_element(By.TAG_NAME,"span")
+
+    def get_logged_in_username_text(self):
+        """Returns the username who is logged in"""
+        return self.get_logged_in_username().text
+
+    def get_logout(self):
+        """Returns the logout element"""
+        return self.driver.find_element(By.CLASS_NAME, "fa-sign-out-alt")
+
+    def logout(self):
+        """Clicks the logout button"""
+        self.get_logout().click()
+

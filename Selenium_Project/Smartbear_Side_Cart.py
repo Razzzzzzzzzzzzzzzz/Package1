@@ -84,5 +84,14 @@ class SmartbearSideCart:
     def go_to_cart(self):
         self.driver.find_element(By.CLASS_NAME, "btn-success").click()
 
+    def checkout(self):
+        self.driver.find_element(By.CLASS_NAME, "btn-clear").click()
+
+    def empty_cart(self):
+        for item in range(len(self.cart_items())):
+            self.remove_item(0)
+            self.wait_for_cart_update()
+
+
 
 

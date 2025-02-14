@@ -8,6 +8,9 @@ from Smartbear_Product import SmartbearProduct
 from Smartbear_Side_Cart import SmartbearSideCart
 from Smartbear_Header import SmartbearHeader
 from Smartbear_Cart import SmartbearCart
+from Smartbear_Login import SmartbearLogin
+from Smartbear_Checkout import SmartbearCheckout
+from Smartbear_Order_Details import SmartbearOrderDetails
 import csv
 csv_file_path = 'C:/Users/razbk/Downloads/Raz - PycharmSheet.csv'
 
@@ -23,35 +26,18 @@ class TestPetstoreMenu(TestCase):
         self.side_cart = SmartbearSideCart(self.driver)
         self.header = SmartbearHeader(self.driver)
         self.cart = SmartbearCart(self.driver)
+        self.login = SmartbearLogin(self.driver)
+        self.checkout = SmartbearCheckout(self.driver)
+        self.order_details = SmartbearOrderDetails(self.driver)
 
     def tearDown(self):
         pass
-        # self.side_cart.close_cart()
-        # self.header.main_menu_button()
-        # self.header.open_cart()
-        # self.side_cart.remove_item(0)
+        self.header.main_menu_button()
+        self.header.open_cart()
+        self.side_cart.empty_cart()
 
-    def test_setup_temp(self):
-        self.main_menu.click_category(2)
-        sleep(2)
-
-    def test_pick_category(self):
-        with open(csv_file_path, mode='r') as file:
-            reader = csv.reader(file)
-            reader = list(reader)
-            print(self.main_menu.category_name(int(reader[1][1])))
-            print(reader[3][1])
-        row = 8
-        column = 1
-        if reader[2][1] == self.main_menu.category_name(int(reader[1][1])):
-            reader[row][column] = 'V'
-        else:
-            reader[row][column] = 'X'
-        with open(csv_file_path, mode='w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows(reader)
-        print(f"Row {row} column {column} to 'V'")
-        self.assertEqual(reader[2][1],self.main_menu.category_name(int(reader[1][1])))
+    def test_empty_cart(self):
+            sleep(15)
 
     # --- [ Test 1 ] ---
     def test_screens_transitions(self):
@@ -93,8 +79,10 @@ class TestPetstoreMenu(TestCase):
         self.category.click_product(int(reader[10][3]))
         self.product.change_item_quantity_value(int(reader[12][3]))
         self.product.add_to_cart()
-        # self.assertEqual(reader[13][3],self.side_cart.cart_quantity_number())
+        self.side_cart.wait_for_cart_to_open()
         self.assertEqual(self.side_cart.cart_item_quantity_value(0) + self.side_cart.cart_item_quantity_value(1),self.side_cart.cart_quantity_number())
+        self.side_cart.close_cart()
+        self.side_cart.wait_for_cart_to_close()
         reader[14][3] = 'V'
         with open(csv_file_path, mode='w', newline='') as file:
             writer = csv.writer(file)
@@ -139,6 +127,8 @@ class TestPetstoreMenu(TestCase):
         self.assertEqual(self.side_cart.cart_item_quantity_value(0),int(reader[19][5]))
         self.assertEqual(self.side_cart.cart_item_quantity_value(1),int(reader[11][5]))
         self.assertEqual(self.side_cart.cart_item_quantity_value(2),int(reader[5][5]))
+        self.side_cart.close_cart()
+        self.side_cart.wait_for_cart_to_close()
         reader[21][5] = 'V'
         with open(csv_file_path, mode='w', newline='') as file:
             writer = csv.writer(file)
@@ -171,7 +161,9 @@ class TestPetstoreMenu(TestCase):
         self.assertEqual(self.side_cart.cart_item_name(0),reader[10][7])
         self.assertEqual(self.side_cart.cart_item_price_number(0),float(reader[12][7]))
         self.assertEqual(int(self.side_cart.cart_item_quantity_value(0)),int(reader[11][7]))
-        reader[12][7] = 'V'
+        self.side_cart.close_cart()
+        self.side_cart.wait_for_cart_to_close()
+        reader[13][7] = 'V'
         with open(csv_file_path, mode='w', newline='') as file:
             writer = csv.writer(file)
             writer.writerows(reader)
@@ -281,7 +273,76 @@ class TestPetstoreMenu(TestCase):
         self.assertEqual(round(self.side_cart.cart_item_price_number(0) * float(self.side_cart.cart_item_quantity_value(0)), 10)
                          + round(self.side_cart.cart_item_price_number(1) * float(self.side_cart.cart_item_quantity_value(1)), 10)
                          , self.side_cart.cart_item_subtotal_number())
+        self.side_cart.close_cart()
+        self.side_cart.wait_for_cart_to_close()
         reader[15][13] = 'V'
         with open(csv_file_path, mode='w', newline='') as file:
             writer = csv.writer(file)
             writer.writerows(reader)
+
+# --- [ Test 8 ] ---
+    def test_order_completion(self):
+        with open(csv_file_path, mode='r') as file:
+            reader = csv.reader(file)
+            reader = list(reader)
+        category_index = int(reader[1][15]) # Adding product 1
+        product_index = int(reader[3][15])
+        self.main_menu.click_category(category_index)
+        self.category.click_product(product_index)
+        self.product.add_to_cart()
+        self.header.main_menu_button()
+        category_index = int(reader[5][15])  # Adding product 2
+        subcategory_index = int(reader[7][15])
+        product_index = int(reader[9][15])
+        self.main_menu.click_category(category_index)
+        self.category.click_sub_category(subcategory_index)
+        self.category.click_product(product_index)
+        self.product.add_to_cart()
+        self.side_cart.checkout()
+        self.login.change_username(reader[11][15])
+        self.login.change_password(reader[12][15])
+        self.login.login()
+        self.cart.click_checkout()
+        self.checkout.change_address_firstname(reader[13][15])
+        self.checkout.change_address_lastname(reader[14][15])
+        self.checkout.click_address_next_page_button()
+        self.checkout.change_address_firstname(reader[13][15])
+        self.checkout.change_address_lastname(reader[14][15])
+        self.checkout.click_address_next_page_button()
+        self.checkout.click_shipping_next_page_button()
+        self.checkout.click_payment_next_page_button()
+        self.checkout.approve_terms_of_service()
+        self.checkout.click_confirm()
+        self.assertEqual(self.checkout.order_received_text(),reader[15][15])
+        reader[16][15] = self.checkout.order_number_text()
+        with open(csv_file_path, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(reader)
+        self.checkout.click_order_details()
+        self.assertEqual(reader[16][15],self.order_details.get_order_number_text()) #Checks for the order number being identical on the checkout and order details screens
+        self.header.open_cart()
+        self.assertFalse(self.side_cart.cart_items()) #Checks if there is anything in the cart
+        self.side_cart.close_cart()
+        self.side_cart.wait_for_cart_to_close()
+        reader[17][15] = 'V'
+        with open(csv_file_path, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(reader)
+
+# --- [ Test 9 ] ---
+    def test_login_logout(self):
+        with open(csv_file_path, mode='r') as file:
+            reader = csv.reader(file)
+            reader = list(reader)
+            self.header.open_login()
+            self.login.change_username(reader[1][17])
+            self.login.change_password(reader[2][17])
+            self.login.login()
+            self.assertEqual(self.header.get_logged_in_username_text().lower(),reader[1][17].lower())
+            self.header.open_login()
+            self.header.logout()
+            self.assertNotEqual(self.header.get_logged_in_username_text().lower(),reader[1][17].lower())
+            reader[3][17] = 'V'
+            with open(csv_file_path, mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(reader)

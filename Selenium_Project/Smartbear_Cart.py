@@ -65,3 +65,12 @@ class SmartbearCart:
         wait = WebDriverWait(self.driver, 10)
         wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR,"[style='visibility: visible; display: none; opacity: 0;']")))
 
+    def get_checkout(self):
+        """Returns the element of the checkout button"""
+        return self.driver.find_element(By.NAME,"checkout")
+
+    def click_checkout(self):
+        """Clicks the checkout button"""
+        self.get_checkout().click()
+
+
