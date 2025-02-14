@@ -15,7 +15,7 @@ class SmartbearHeader:
 
     def get_cart(self):
         """Returns the element of the shopping cart icon"""
-        return self.driver.find_element(By.XPATH, "//*[@ID='shopbar-compare']/a")
+        return self.driver.find_element(By.XPATH, "//*[@ID='shopbar-cart']/a")
 
     def open_cart(self):
         """Opens the shopping cart by clicking its icon"""
