@@ -25,7 +25,8 @@ class SmartbearCart:
 
     def get_cart_item_name(self,item):
         """returns a cart item name"""
-        return self.get_cart_item(item).find_element(By.CLASS_NAME,"cart-item-link").text
+        return self.get_cart_item(item).find_element(By.CLASS_NAME,
+                                                    "cart-item-link").text
 
     def get_cart_item_quantity_element(self,item):
         """returns a cart item quantity element"""
@@ -45,25 +46,32 @@ class SmartbearCart:
 
     def get_cart_item_price(self,item):
         """returns an item price"""
-        return float(self.get_cart_item_prices(item)[0].text[:-9].replace('$', '').replace(',', ''))
+        return float(self.get_cart_item_prices(item)[0].text[:-9]
+                    .replace('$', '').replace(',', ''))
 
     def get_cart_item_total_price(self,item):
         """returns an item total price"""
-        return float(self.get_cart_item_prices(item)[1].text[:-9].replace('$', '').replace(',', ''))
+        return float(self.get_cart_item_prices(item)[1].text[:-9]
+                    .replace('$', '').replace(',', ''))
 
     def get_cart_subtotal(self):
         """returns the cart subtotal"""
-        return self.driver.find_element(By.XPATH, "//*[@class='cart-summary-value'][1]").text
+        return self.driver.find_element(By.XPATH,
+                                    "//*[@class='cart-summary-value'][1]").text
 
     def get_cart_subtotal_number(self):
         """returns the cart subtotal number"""
-        return float(self.get_cart_subtotal()[:-9].replace('$', '').replace(',', ''))
+        return float(self.get_cart_subtotal()[:-9]
+                    .replace('$', '').replace(',', ''))
 
     def wait_for_cart_update(self):
+        """Waits for the cart to update after adding/removing an item"""
         wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR,"[style='visibility: visible; display: block; opacity: 1;']")))
+        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR,
+                "[style='visibility: visible; display: block; opacity: 1;']")))
         wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR,"[style='visibility: visible; display: none; opacity: 0;']")))
+        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR,
+                "[style='visibility: visible; display: none; opacity: 0;']")))
 
     def get_checkout(self):
         """Returns the element of the checkout button"""

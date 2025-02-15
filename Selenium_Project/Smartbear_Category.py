@@ -15,14 +15,16 @@ class SmartbearCategory:
 
     def sub_categories(self):
         """Returns the elements of the sub categories items"""
-        return self.driver.find_elements(By.CLASS_NAME, "artlist-sub-categories")
+        return self.driver.find_elements(By.CLASS_NAME,
+                                        "artlist-sub-categories")
 
     def get_sub_category(self,index):
         """Returns the element of a sub category item"""
-        return self.sub_categories()[index].find_element(By.XPATH, "article/div[2]/a/span")
+        return self.sub_categories()[index].find_element(By.XPATH,
+                                                    "article/div[2]/a/span")
 
     def click_sub_category(self,index):
-        """Clicks the sub category item"""
+        """Enters the sub category chosen by clicking it"""
         return self.get_sub_category(index).click()
 
     def get_products(self):
@@ -34,12 +36,13 @@ class SmartbearCategory:
         return self.get_products()[product].find_element(By.XPATH,"a/span")
 
     def click_product(self, product):
-        """Clicks the returned product"""
+        """Enters the chosen product by clicking it"""
         self.get_product(product).click()
 
     def return_menu(self):
         """Returns the elements of the return menu"""
-        return self.driver.find_elements(By.XPATH,"//*[@class='breadcrumb mb-0']/li")
+        return self.driver.find_elements(By.XPATH,
+                                        "//*[@class='breadcrumb mb-0']/li")
 
     def return_back(self,page):
         """Returns back to a previous page by clicking it"""

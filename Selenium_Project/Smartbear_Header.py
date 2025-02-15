@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class SmartbearHeader:
     def __init__(self,driver:webdriver.chrome):
@@ -23,7 +25,8 @@ class SmartbearHeader:
 
     def get_login(self):
         """Returns the element of the login icon"""
-        return self.driver.find_element(By.XPATH, "//*[@id='menubar-my-account']/div/a")
+        return self.driver.find_element(By.XPATH,
+                                        "//*[@id='menubar-my-account']/div/a")
 
     def open_login(self):
         """Opens the login screen by clicking its icon"""
@@ -42,6 +45,5 @@ class SmartbearHeader:
         return self.driver.find_element(By.CLASS_NAME, "fa-sign-out-alt")
 
     def logout(self):
-        """Clicks the logout button"""
+        """Logs out of the user by clicking the logout button"""
         self.get_logout().click()
-

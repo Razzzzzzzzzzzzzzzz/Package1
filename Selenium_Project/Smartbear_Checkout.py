@@ -1,7 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 class SmartbearCheckout:
     def __init__(self,driver:webdriver.chrome):
@@ -25,7 +23,8 @@ class SmartbearCheckout:
 
     def address_next_page_button(self):
         """Returns the Element of the address next page button"""
-        return self.driver.find_element(By.CLASS_NAME,"new-address-next-step-button")
+        return self.driver.find_element(By.CLASS_NAME,
+                                        "new-address-next-step-button")
 
     def click_address_next_page_button(self):
         """Clicks the address Next Page Button"""
@@ -33,7 +32,8 @@ class SmartbearCheckout:
 
     def shipping_next_page_button(self):
         """Returns the Element of the shipping next page button"""
-        return self.driver.find_element(By.CLASS_NAME,"shipping-method-next-step-button")
+        return self.driver.find_element(By.CLASS_NAME,
+                                        "shipping-method-next-step-button")
 
     def click_shipping_next_page_button(self):
         """Clicks the Shipping Next Page Button"""
@@ -41,7 +41,8 @@ class SmartbearCheckout:
 
     def payment_next_page_button(self):
         """Returns the Element of the payment next page button"""
-        return self.driver.find_element(By.CLASS_NAME,"payment-method-next-step-button")
+        return self.driver.find_element(By.CLASS_NAME,
+                                        "payment-method-next-step-button")
 
     def click_payment_next_page_button(self):
         """Clicks the Payment Next Page Button"""
@@ -73,7 +74,8 @@ class SmartbearCheckout:
 
     def order_number(self):
         """Returns the element of the order number"""
-        return self.driver.find_element(By.XPATH, "//*[@class='order-completed']//strong")
+        return self.driver.find_element(By.XPATH,
+                                    "//*[@class='order-completed']//strong")
 
     def order_number_text(self):
         """Returns the number/text of the order number"""
