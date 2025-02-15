@@ -38,9 +38,6 @@ class TestPetstoreMenu(TestCase):
         self.side_cart.empty_cart() # Removes all products when the test ends
         self.main_menu.close_website()
 
-    def test_empty_cart(self):
-            pass
-
     def test_screens_transitions(self):
         logging.info(" Test 1 Started")
         with open(csv_file_path, mode='r') as file:
