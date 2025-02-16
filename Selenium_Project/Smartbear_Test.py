@@ -1,6 +1,5 @@
 from unittest import TestCase
 from selenium import webdriver
-from time import sleep
 import logging
 from Smartbear_Main_Menu import SmartbearMainMenu
 from Smartbear_Category import SmartbearCategory
