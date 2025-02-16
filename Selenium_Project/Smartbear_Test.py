@@ -35,9 +35,10 @@ class TestPetstoreMenu(TestCase):
         self.header.main_menu_button()
         self.header.open_cart()
         self.side_cart.empty_cart() # Removes all products when the test ends
-        self.main_menu.close_website()
+        self.driver.close()
 
     def test_screens_transitions(self):
+        """Testing the entrance to the product and category chosen"""
         logging.info(" Test 1 Started")
         with open(csv_file_path, mode='r') as file:
             reader = csv.reader(file)
@@ -66,6 +67,8 @@ class TestPetstoreMenu(TestCase):
             writer.writerows(reader) # Writes the info to Excel
 
     def test_total_quantity(self):
+        """Testing for the quantity of the products appearing
+        correctly at the side cart"""
         logging.info(" Test 2 Started")
         with open(csv_file_path, mode='r') as file:
             reader = csv.reader(file)
@@ -96,6 +99,7 @@ class TestPetstoreMenu(TestCase):
 
     # --- [ Test 3 ] ---
     def test_name_price_quantity(self):
+        """Testing 3 products appearing correctly at the side cart"""
         logging.info(" Test 3 Started")
         with open(csv_file_path, mode='r') as file:
             reader = csv.reader(file)
@@ -106,6 +110,8 @@ class TestPetstoreMenu(TestCase):
         self.main_menu.click_category(category_index)
         self.category.click_product(product_index)
         self.product.change_item_quantity_value(quantity_index)
+        product_1_price = self.product.get_price_text()
+        product_1_name = self.product.product_title_name()
         self.product.add_to_cart()
         self.header.main_menu_button()
         category_index = int(reader[7][5])  # Adding product 2
@@ -114,6 +120,8 @@ class TestPetstoreMenu(TestCase):
         self.main_menu.click_category(category_index)
         self.category.click_product(product_index)
         self.product.change_item_quantity_value(quantity_index)
+        product_2_price = self.product.get_price_text()
+        product_2_name = self.product.product_title_name()
         self.product.add_to_cart()
         self.header.main_menu_button()
         category_index = int(reader[13][5])  # Adding product 3
@@ -124,17 +132,19 @@ class TestPetstoreMenu(TestCase):
         self.category.click_sub_category(subcategory_index)
         self.category.click_product(product_index)
         self.product.change_item_quantity_value(quantity_index)
+        product_3_price = self.product.get_price_text()
+        product_3_name = self.product.product_title_name()
         self.product.add_to_cart()
-        self.assertEqual(self.side_cart.cart_item_name(0),reader[18][5])
-        self.assertEqual(self.side_cart.cart_item_name(1),reader[10][5])
-        self.assertEqual(self.side_cart.cart_item_name(2),reader[4][5])
+        self.assertEqual(self.side_cart.cart_item_name(0),product_3_name)
+        self.assertEqual(self.side_cart.cart_item_name(1),product_2_name)
+        self.assertEqual(self.side_cart.cart_item_name(2),product_1_name)
         logging.info(" [V] Products Names")
         self.assertEqual(self.side_cart.cart_item_price_number(0),
-                        float(reader[20][5]))
+                        product_3_price)
         self.assertEqual(self.side_cart.cart_item_price_number(1),
-                        float(reader[12][5]))
+                        product_2_price)
         self.assertEqual(self.side_cart.cart_item_price_number(2),
-                        float(reader[6][5]))
+                        product_1_price)
         logging.info(" [V] Products Prices")
         self.assertEqual(self.side_cart.cart_item_quantity_value(0),
                         int(reader[19][5]))
@@ -152,6 +162,8 @@ class TestPetstoreMenu(TestCase):
 
 # --- [ Test 4 ] ---
     def test_product_removal(self):
+        """Testing for the remaining product appearing correctly
+        after removing another product"""
         logging.info(" Test 4 Started")
         with open(csv_file_path, mode='r') as file:
             reader = csv.reader(file)
@@ -169,18 +181,20 @@ class TestPetstoreMenu(TestCase):
         quantity_index = int(reader[11][7])
         self.main_menu.click_category(category_index)
         self.category.click_product(product_index)
+        product_price = self.product.get_price_text()
+        product_name =  self.product.product_title_name()
         self.product.change_item_quantity_value(quantity_index)
         self.product.add_to_cart()
         self.side_cart.remove_item(1)
         self.side_cart.wait_for_cart_update()
-        self.assertEqual(round(self.side_cart.cart_item_price_number(0)*
+        self.assertEqual(round(product_price*
                         float(self.side_cart.cart_item_quantity_value(0)),10),
                         self.side_cart.cart_item_subtotal_number())
         logging.info(" [V] Remaining Products Subtotal Change")
-        self.assertEqual(self.side_cart.cart_item_name(0),reader[10][7])
+        self.assertEqual(self.side_cart.cart_item_name(0),product_name)
         logging.info(" [V] Remaining Product Name")
         self.assertEqual(self.side_cart.cart_item_price_number(0),
-                        float(reader[12][7]))
+                        float(product_price))
         logging.info(" [V] Remaining Product Price")
         self.assertEqual(int(self.side_cart.cart_item_quantity_value(0)),
                         int(reader[11][7]))
@@ -194,6 +208,7 @@ class TestPetstoreMenu(TestCase):
 
 # --- [ Test 5 ] ---
     def test_cart_products_changes(self):
+        """Testing for the side cart opening and closing correctly"""
         logging.info(" Test 5 Started")
         with open(csv_file_path, mode='r') as file:
             reader = csv.reader(file)
@@ -204,20 +219,14 @@ class TestPetstoreMenu(TestCase):
         self.category.click_product(product_index)
         self.product.add_to_cart()
         self.side_cart.wait_for_cart_update()
-        self.assertEqual(self.side_cart.get_cart_status(),
-                        "offcanvas offcanvas-lg offcanvas-overlay "
-                        "offcanvas-right offcanvas-shadow on")
+        self.assertTrue(self.side_cart.is_cart_open())
         logging.info(" [V] Cart Opening Automatically")
         self.side_cart.close_cart()
-        self.assertEqual(self.side_cart.get_cart_status(),
-                        "offcanvas offcanvas-lg offcanvas-overlay "
-                        "offcanvas-right offcanvas-shadow")
+        self.assertFalse(self.side_cart.is_cart_open())
         logging.info(" [V] Cart Closing After Screen Touch")
         self.side_cart.wait_for_cart_to_close()
         self.header.open_cart()
-        self.assertEqual(self.side_cart.get_cart_status(),
-                         "offcanvas offcanvas-lg offcanvas-overlay "
-                         "offcanvas-right offcanvas-shadow on")
+        self.assertTrue(self.side_cart.is_cart_open())
         logging.info(" [V] Cart Opening After Shopcart Press")
         self.side_cart.wait_for_cart_to_open()
         self.side_cart.go_to_cart()
@@ -230,6 +239,8 @@ class TestPetstoreMenu(TestCase):
 
 # --- [ Test 6 ] ---
     def test_shopping_carts_info(self):
+        """Testing for the products subtotal appearing correctly
+        in the carts"""
         logging.info(" Test 6 Started")
         with open(csv_file_path, mode='r') as file:
             reader = csv.reader(file)
@@ -289,6 +300,8 @@ class TestPetstoreMenu(TestCase):
             writer.writerows(reader)
 
 # --- [ Test 7 ] ---
+    """Testing for the products to show correctly after changing their
+    quantity"""
     def test(self):
         logging.info(" Test 7 Started")
         with open(csv_file_path, mode='r') as file:
@@ -344,6 +357,7 @@ class TestPetstoreMenu(TestCase):
 
 # --- [ Test 8 ] ---
     def test_order_completion(self):
+        """Testing for the validation of the order after completing it"""
         logging.info(" Test 8 Started")
         with open(csv_file_path, mode='r') as file:
             reader = csv.reader(file)
@@ -398,6 +412,7 @@ class TestPetstoreMenu(TestCase):
 
 # --- [ Test 9 ] ---
     def test_login_logout(self):
+        """Testing for the user logging in and out"""
         logging.info(" Test 9 Started")
         with open(csv_file_path, mode='r') as file:
             reader = csv.reader(file)

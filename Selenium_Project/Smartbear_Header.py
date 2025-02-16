@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 class SmartbearHeader:
+    """Navigation bar at the top of the website"""
     def __init__(self,driver:webdriver.chrome):
         self.driver = driver
 

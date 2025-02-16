@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 class SmartbearCategory:
+    """Category Page"""
     def __init__(self,driver:webdriver.chrome):
         self.driver = driver
 

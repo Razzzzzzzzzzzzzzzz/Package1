@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 class SmartbearMainMenu:
+    """The home page"""
     def __init__(self,driver:webdriver.chrome):
         self.driver = driver
 
@@ -30,7 +31,3 @@ class SmartbearMainMenu:
     def category_name(self,category):
         """Returns the next of the category"""
         return self.choose_category(category).text
-
-    def close_website(self):
-        """Closes the Website"""
-        return self.driver.close()

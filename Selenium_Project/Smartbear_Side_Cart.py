@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class SmartbearSideCart:
+    """The cart on the side of the website after it slides open"""
     def __init__(self,driver:webdriver.chrome):
         self.driver = driver
 
@@ -122,6 +123,9 @@ class SmartbearSideCart:
             self.remove_item(0)
             self.wait_for_cart_update()
 
+    def is_cart_open(self):
+        """Returns true if the cart is open"""
+        return self.get_cart_status() == "offcanvas offcanvas-lg offcanvas-overlay offcanvas-right offcanvas-shadow on"
 
 
 

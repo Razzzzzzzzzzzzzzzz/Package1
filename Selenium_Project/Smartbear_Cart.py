@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class SmartbearCart:
+    """The cart page"""
     def __init__(self,driver:webdriver.chrome):
         self.driver = driver
 

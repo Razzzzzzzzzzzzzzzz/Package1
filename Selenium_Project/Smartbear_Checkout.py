@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 class SmartbearCheckout:
+    """The pages you go throughout the checkout from the cart to
+    complete your order"""
     def __init__(self,driver:webdriver.chrome):
         self.driver = driver
 

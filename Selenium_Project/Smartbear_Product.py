@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 class SmartbearProduct:
+    """Product Page"""
     def __init__(self,driver:webdriver.chrome):
         self.driver = driver
 
@@ -20,10 +21,6 @@ class SmartbearProduct:
     def add_to_cart(self):
         """Adds the product to the cart by clicking it"""
         self.get_add_to_cart().click()
-
-    def product_quantity(self):
-        """Returns the product quantity element"""
-        return self.driver.find_element
 
     def return_menu(self):
         """Returns the elements of the return menu"""
@@ -46,3 +43,12 @@ class SmartbearProduct:
         """Changes the item quantity value to the entered value"""
         self.item_quantity().clear()
         self.item_quantity().send_keys(quantity)
+
+    def get_price(self):
+        """Returns the element of the product price"""
+        return self.driver.find_element(By.XPATH,"//*[@id='pd-form']/section/aside/div[4]/div[1]/div/div[1]/div[1]/div/div/span")
+
+    def get_price_text(self):
+        """Returns the number of the product price"""
+        return float(self.get_price().text[:-9]
+                 .replace('$', '').replace(',', ''))
