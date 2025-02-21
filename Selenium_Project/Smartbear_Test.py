@@ -13,7 +13,7 @@ from Smartbear_Order_Details import SmartbearOrderDetails
 import csv
 csv_file_path = 'C:/Users/razbk/Downloads/Raz - PycharmSheet.csv'
 
-class TestPetstoreMenu(TestCase):
+class TestSmartBear(TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://bearstore-testsite.smartbear.com/")
