@@ -30,8 +30,6 @@ class TestHilton(TestCase):
         self.driver_mobile.quit()
 
     def test_lowest_price(self):
-        """Testing for the lowest price available to be
-        identical on the application and the website"""
         self.home_page.search(search_text)
         self.home_page.find_a_hotel()
         self.hotel_results_page.sort_by_low_price()
